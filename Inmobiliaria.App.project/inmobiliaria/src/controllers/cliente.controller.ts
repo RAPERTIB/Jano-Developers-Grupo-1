@@ -17,19 +17,23 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
-import {Cliente} from '../models';
-import {ClienteRepository} from '../repositories';
-
+import { Cliente, Credenciales } from '../models';
+import { ClienteRepository } from '../repositories';
+import { UsuarioController } from './usuario.controller';
+import { AutenticacionProvider } from '../services';
+import { service } from '@loopback/core';
 export class ClienteController {
   constructor(
     @repository(ClienteRepository)
-    public clienteRepository : ClienteRepository,
-  ) {}
+    public clienteRepository: ClienteRepository,
+    @service(AutenticacionProvider)
+    public servicioAutenticacion:AutenticacionProvider 
+  ) { }
 
   @post('/clientes')
   @response(200, {
     description: 'Cliente model instance',
-    content: {'application/json': {schema: getModelSchemaRef(Cliente)}},
+    content: { 'application/json': { schema: getModelSchemaRef(Cliente) } },
   })
   async create(
     @requestBody({
@@ -50,7 +54,7 @@ export class ClienteController {
   @get('/clientes/count')
   @response(200, {
     description: 'Cliente model count',
-    content: {'application/json': {schema: CountSchema}},
+    content: { 'application/json': { schema: CountSchema } },
   })
   async count(
     @param.where(Cliente) where?: Where<Cliente>,
@@ -65,7 +69,7 @@ export class ClienteController {
       'application/json': {
         schema: {
           type: 'array',
-          items: getModelSchemaRef(Cliente, {includeRelations: true}),
+          items: getModelSchemaRef(Cliente, { includeRelations: true }),
         },
       },
     },
@@ -79,13 +83,13 @@ export class ClienteController {
   @patch('/clientes')
   @response(200, {
     description: 'Cliente PATCH success count',
-    content: {'application/json': {schema: CountSchema}},
+    content: { 'application/json': { schema: CountSchema } },
   })
   async updateAll(
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Cliente, {partial: true}),
+          schema: getModelSchemaRef(Cliente, { partial: true }),
         },
       },
     })
@@ -100,13 +104,13 @@ export class ClienteController {
     description: 'Cliente model instance',
     content: {
       'application/json': {
-        schema: getModelSchemaRef(Cliente, {includeRelations: true}),
+        schema: getModelSchemaRef(Cliente, { includeRelations: true }),
       },
     },
   })
   async findById(
     @param.path.string('id') id: string,
-    @param.filter(Cliente, {exclude: 'where'}) filter?: FilterExcludingWhere<Cliente>
+    @param.filter(Cliente, { exclude: 'where' }) filter?: FilterExcludingWhere<Cliente>
   ): Promise<Cliente> {
     return this.clienteRepository.findById(id, filter);
   }
@@ -120,7 +124,7 @@ export class ClienteController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Cliente, {partial: true}),
+          schema: getModelSchemaRef(Cliente, { partial: true }),
         },
       },
     })
@@ -147,4 +151,23 @@ export class ClienteController {
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.clienteRepository.deleteById(id);
   }
+
+  @post('/login')
+  @response(200, {
+    description: "Identificacion de las personas"
+  })
+  async identificar(
+    @requestBody() credenciales: Credenciales
+  ):Promise<Cliente | null>{
+    let clienteEncontrado = await this.clienteRepository.findOne({
+      where: {
+        correo: credenciales.usuario,
+        clave: credenciales.password
+      }
+    });
+    return clienteEncontrado;
+  }
+
 }
+
+

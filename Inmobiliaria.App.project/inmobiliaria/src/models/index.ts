@@ -6,3 +6,4 @@ export * from './asesor.model';
 export * from './rol.model';
 export * from './facturacion.model';
 export * from './admin.model';
+export * from './credenciales.model';
