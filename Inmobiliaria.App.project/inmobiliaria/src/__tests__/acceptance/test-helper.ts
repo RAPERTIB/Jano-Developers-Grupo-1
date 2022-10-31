@@ -1,4 +1,4 @@
-import {InmobiliariaApplication} from '../..';
+import {App} from '../..';
 import {
   createRestAppClient,
   givenHttpServerConfig,
@@ -14,7 +14,7 @@ export async function setupApplication(): Promise<AppWithClient> {
     // port: +process.env.PORT,
   });
 
-  const app = new InmobiliariaApplication({
+  const app = new App({
     rest: restConfig,
   });
 
@@ -27,6 +27,6 @@ export async function setupApplication(): Promise<AppWithClient> {
 }
 
 export interface AppWithClient {
-  app: InmobiliariaApplication;
+  app: App;
   client: Client;
 }

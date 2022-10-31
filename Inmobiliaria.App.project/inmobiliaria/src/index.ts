@@ -1,9 +1,9 @@
-import {ApplicationConfig, InmobiliariaApplication} from './application';
+import {ApplicationConfig, App} from './application';
 
 export * from './application';
 
 export async function main(options: ApplicationConfig = {}) {
-  const app = new InmobiliariaApplication(options);
+  const app = new App(options);
   await app.boot();
   await app.start();
 
