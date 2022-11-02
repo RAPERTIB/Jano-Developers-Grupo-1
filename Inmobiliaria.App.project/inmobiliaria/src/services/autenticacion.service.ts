@@ -1,17 +1,23 @@
 import {injectable, /* inject, */ BindingScope, Provider} from '@loopback/core';
-const generador = require("password-generator");
+import { repository } from '@loopback/repository';
+import { Keys } from '../Config/Keys';
+import { Cliente, Credenciales } from '../models';
+import { ClienteRepository } from '../repositories';
+const generador = require("generate-password");
 const cryptoJS = require("crypto-js");
+const jwt = require("jsonwebtoken");
 /*
  * Fix the service type. Possible options can be:
  * - import {Autenticacion} from 'your-module';
  * - export type Autenticacion = string;
  * - export interface Autenticacion {}
  */
-export type Autenticacion = unknown;
 
 @injectable({scope: BindingScope.TRANSIENT})
-export class AutenticacionProvider implements Provider<Autenticacion> {
-  constructor(/* Add @inject to inject parameters */) {}
+export class AutenticacionService {
+  constructor(@repository (ClienteRepository)
+    public repositorioCliente:ClienteRepository
+    ) {}
 
    GeneradorPassword(){
       let password = generador.generate({
@@ -27,10 +33,42 @@ export class AutenticacionProvider implements Provider<Autenticacion> {
       
     }
 
-  value() {
-    // Add your implementation here
-   
-    throw new Error('To be implemented');
-    
+    IdentificarCliente(credenciales:Credenciales){
+      try {
+        let p = this.repositorioCliente.findOne({
+          where:{correo:credenciales.usuario, clave:credenciales.password}
+        });
+        if(p){
+          return p;
+        }
+        return false;
+      } catch  {
+        return false;
+      }
+
+    }
+
+  GeneracionToken(cliente:Cliente){
+    let token = jwt.sing({
+      data:{
+        id: cliente.id,
+        correo: cliente.correo,
+        nombre: cliente.primernombre + " " + cliente.primerapellido
+      }
+    }, Keys.claveJWT
+    );
+
+    return token;
   }
+
+  ValidarToken(token:string){
+    try {
+      let datos = jwt.verify(token,Keys.claveJWT);
+      return datos;
+    } catch {
+      return false;
+    }
+  }
+  
+  
 }

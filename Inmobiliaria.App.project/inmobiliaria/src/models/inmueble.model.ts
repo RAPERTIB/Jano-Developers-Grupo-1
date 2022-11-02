@@ -91,6 +91,16 @@ export class Inmueble extends Entity {
   })
   clienteId?: string;
 
+  @property({
+    type: 'string',
+  })
+  asesorId?: string;
+
+  @property({
+    type: 'string',
+  })
+  adminId?: string;
+
   constructor(data?: Partial<Inmueble>) {
     super(data);
   }

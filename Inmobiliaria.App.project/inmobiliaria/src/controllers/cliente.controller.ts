@@ -16,18 +16,21 @@ import {
   del,
   requestBody,
   response,
+  HttpErrors,
 } from '@loopback/rest';
 import { Cliente, Credenciales } from '../models';
 import { ClienteRepository } from '../repositories';
 import { UsuarioController } from './usuario.controller';
-import { AutenticacionProvider } from '../services';
+import { AutenticacionService } from '../services';
 import { service } from '@loopback/core';
+import { Keys } from '../Config/Keys';
+const nodeFetch = require('node-fetch');
 export class ClienteController {
   constructor(
     @repository(ClienteRepository)
     public clienteRepository: ClienteRepository,
-    @service(AutenticacionProvider)
-    public servicioAutenticacion:AutenticacionProvider 
+    @service(AutenticacionService)
+    public servicioAutenticacion:AutenticacionService
   ) { }
 
   @post('/clientes')
@@ -48,7 +51,24 @@ export class ClienteController {
     })
     cliente: Omit<Cliente, 'id'>,
   ): Promise<Cliente> {
-    return this.clienteRepository.create(cliente);
+    let clave = this.servicioAutenticacion.GeneradorPassword();
+    let clavecifrada = this.servicioAutenticacion.EncriptarPassword(clave);
+    cliente.clave= clavecifrada;
+
+    let p = await this.clienteRepository.create(cliente);
+    
+    //Notificacion al usuario
+
+    let destino = p.correo;
+    let asunto = "Registro en Hogar Colombia"
+    let mensaje = `Hola, ${p.primernombre + p.primerapellido} su usuario de acceso es: ${p.correo} y su contraseña es: ${clave}`;
+
+    nodeFetch(`${Keys.urlNotificaciones}/e-mail?correo-destino=${destino}&asunto=${asunto}&contenido=${mensaje}`)
+    .then((data:any)=>{
+    
+    console.log(data);
+    });
+    return p; 
   }
 
   @get('/clientes/count')
@@ -159,6 +179,7 @@ export class ClienteController {
   async identificar(
     @requestBody() credenciales: Credenciales
   ):Promise<Cliente | null>{
+    credenciales.password = this.servicioAutenticacion.EncriptarPassword(credenciales.password)
     let clienteEncontrado = await this.clienteRepository.findOne({
       where: {
         correo: credenciales.usuario,
@@ -166,6 +187,29 @@ export class ClienteController {
       }
     });
     return clienteEncontrado;
+  }
+
+  @post('/loginT')
+  @response(200, {
+    description: "Identificacion de las personas con el token"
+  })
+  async identificarToken(
+    @requestBody() credenciales: Credenciales
+  ) {
+    
+    let p = await this.servicioAutenticacion.IdentificarCliente(credenciales);
+    if(p){
+      let token = this.servicioAutenticacion.GeneracionToken(p);
+      return {
+        informacion: {
+          nombre:p.primernombre,
+          id:p.id
+        },
+        tk:token
+      }
+    }else{
+      throw new HttpErrors[401]("Datos Invalidos")
+    }
   }
 
 }
