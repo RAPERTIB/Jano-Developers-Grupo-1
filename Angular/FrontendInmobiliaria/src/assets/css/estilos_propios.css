@@ -1,0 +1,9 @@
+.container{
+    border: 1px solid;
+}
+
+body{
+    padding: 10px;
+    background-image: url("src/assets/img/1.jpg") ;
+    
+}

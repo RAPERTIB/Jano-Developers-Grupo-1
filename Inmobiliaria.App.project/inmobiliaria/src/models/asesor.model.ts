@@ -57,6 +57,11 @@ export class Asesor extends Entity {
     required: true,
   })
   codigoUnico: string;
+  @property({
+    type: 'string',
+    required: false,
+  })
+  clave?: string;
 
   @hasMany(() => Inmueble)
   inmuebles: Inmueble[];

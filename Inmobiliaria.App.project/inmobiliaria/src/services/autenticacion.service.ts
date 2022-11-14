@@ -1,8 +1,8 @@
 import {injectable, /* inject, */ BindingScope, Provider} from '@loopback/core';
 import { repository } from '@loopback/repository';
 import { Keys } from '../Config/Keys';
-import { Cliente, Credenciales } from '../models';
-import { ClienteRepository } from '../repositories';
+import { Admin, Asesor, Cliente, Credenciales } from '../models';
+import { AdminRepository, AsesorRepository, ClienteRepository } from '../repositories';
 const generador = require("generate-password");
 const cryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
@@ -15,8 +15,10 @@ const jwt = require("jsonwebtoken");
 
 @injectable({scope: BindingScope.TRANSIENT})
 export class AutenticacionService {
-  constructor(@repository (ClienteRepository)
-    public repositorioCliente:ClienteRepository
+  constructor(@repository (AdminRepository )
+    public repositorioAdmin:AdminRepository,
+    @repository(AsesorRepository)
+    public repositorioAsesor: AsesorRepository
     ) {}
 
    GeneradorPassword(){
@@ -33,9 +35,9 @@ export class AutenticacionService {
       
     }
 
-    IdentificarCliente(credenciales:Credenciales){
+    IdentificarAdmin(credenciales:Credenciales){
       try {
-        let p = this.repositorioCliente.findOne({
+        let p = this.repositorioAdmin.findOne({
           where:{correo:credenciales.usuario, clave:credenciales.password}
         });
         if(p){
@@ -47,19 +49,34 @@ export class AutenticacionService {
       }
 
     }
-
-  GeneracionToken(cliente:Cliente){
-    let token = jwt.sing({
-      data:{
-        id: cliente.id,
-        correo: cliente.correo,
-        nombre: cliente.primernombre + " " + cliente.primerapellido
+  IdentificarAsesor(credenciales: Credenciales) {
+    try {
+      let p = this.repositorioAdmin.findOne({
+        where: { correo: credenciales.usuario, clave: credenciales.password }
+      });
+      if (p) {
+        return p;
       }
-    }, Keys.claveJWT
-    );
+      return false;
+    } catch {
+      return false;
+    }
 
-    return token;
   }
+
+    GeneracionToken(cliente:Admin){
+      let token = jwt.sing({
+        data:{
+          id: cliente.id,
+          correo: cliente.correo,
+          nombre: cliente.primernombre + " " + cliente.primerapellido,
+          rol: cliente.rol
+        }
+      }, Keys.claveJWT
+      );
+
+      return token;
+    }
 
   ValidarToken(token:string){
     try {

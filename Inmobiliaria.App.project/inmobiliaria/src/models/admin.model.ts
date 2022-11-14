@@ -59,6 +59,18 @@ export class Admin extends Entity {
   })
   direccion: string;
 
+  @property({
+    type: 'string',
+    required: false,
+  })
+  clave?: string;
+
+  @property({
+    type: 'string',
+    required: false,
+  })
+  rol?: string;
+
   @hasMany(() => Asesor)
   asesors: Asesor[];
 

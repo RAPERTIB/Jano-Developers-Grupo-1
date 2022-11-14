@@ -10,3 +10,8 @@ export * from './admin-asesor.controller';
 export * from './admin-inmueble.controller';
 export * from './facturacion-cliente.controller';
 export * from './facturacion-inmueble.controller';
+export * from './admin.controller';
+export * from './asesor.controller';
+export * from './facturacion.controller';
+export * from './inmueble.controller';
+export * from './solicitud.controller';

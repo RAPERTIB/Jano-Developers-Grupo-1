@@ -189,27 +189,38 @@ export class ClienteController {
     return clienteEncontrado;
   }
 
-  @post('/loginT')
+  @post('/recuperarPass')
   @response(200, {
-    description: "Identificacion de las personas con el token"
+    description: "Recuperacion de la contraseña del cliente"
   })
-  async identificarToken(
-    @requestBody() credenciales: Credenciales
-  ) {
-    
-    let p = await this.servicioAutenticacion.IdentificarCliente(credenciales);
-    if(p){
-      let token = this.servicioAutenticacion.GeneracionToken(p);
-      return {
-        informacion: {
-          nombre:p.primernombre,
-          id:p.id
-        },
-        tk:token
+  async recuperarPass(
+    @requestBody() email: string
+  ): Promise<Boolean> {
+
+    let p = await this.clienteRepository.findOne({
+      where: {
+        correo: email
       }
-    }else{
-      throw new HttpErrors[401]("Datos Invalidos")
+    });
+
+    if (p) {
+      let newpass = this.servicioAutenticacion.GeneradorPassword();
+      let newpassEncrip = this.servicioAutenticacion.EncriptarPassword(newpass);
+      p.clave = newpassEncrip;
+
+      //mensaje al correo del cliente
+
+      let destino = p.correo;
+      let mensaje = `Hola ${p.primernombre} ${p.primerapellido}, usted a solicitado el restablecimiento de su cuenta, su nueva contraseña temporal es ${newpass}`;
+      let asunto = "Restablecimiento de su contraseña -- Inmobiliaria -- HOGAR COLOMBIA --";
+
+      nodeFetch(`${Keys.urlNotificaciones}/e-mail?correo-destino=${destino}&asunto=${asunto}&contenido=${mensaje}`).then((data: any) => {
+        console.log(data);
+      });
+      return true;
     }
+    return false;
+
   }
 
 }
