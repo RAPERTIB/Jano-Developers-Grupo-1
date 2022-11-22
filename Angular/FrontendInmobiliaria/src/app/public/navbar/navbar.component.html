@@ -1,22 +1,22 @@
 
-
 <nav>
     <div class="nav-wrapper cyan darken-1">
       <a routerLink="" class="brand-logo">APP-Inmobiliaria</a>
-      <a routerLinkf="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a routerLinkf="" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li *ngIf="!sesionActiva"><a routerLink="seguridad/registrese">Registrese</a></li>
         <li *ngIf="!sesionActiva"><a routerLink="seguridad/Login">Login</a></li>
         <li *ngIf="sesionActiva"><a routerLink="collapsible.html">Javascript</a></li>
         <li *ngIf="sesionActiva"><a routerLink="mobile.html">Mobile</a></li>
+        <li *ngIf="sesionActiva"><a routerLink="seguridad/logout">Logout</a></li>
       </ul>
     </div>
   </nav>
 
   <ul class="sidenav" id="mobile-demo">
-    <li><a routerLink="Login">Registrese</a></li>
-    <li><a routerLink="Login">Login</a></li>
-    <li><a routerLink="badges.html">Components</a></li>
-    <li><a routerLink="collapsible.html">Javascript</a></li>
-    <li><a routerLink="mobile.html">Mobile</a></li>
+      <li *ngIf="!sesionActiva"><a routerLink="seguridad/registrese">Registrese</a></li>
+      <li *ngIf="!sesionActiva"><a routerLink="seguridad/Login">Login</a></li>
+      <li *ngIf="sesionActiva"><a routerLink="collapsible.html">Javascript</a></li>
+      <li *ngIf="sesionActiva"><a routerLink="mobile.html">Mobile</a></li>
+      <li *ngIf="sesionActiva"><a routerLink="seguridad/logout">Logout</a></li>
   </ul>
