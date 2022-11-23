@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CredencialesUserModel } from 'src/app/modelos/credenciales-user.model';
 import { SeguridadService } from 'src/app/servicios/comun/seguridad.service';
+const CryptoJS = require("crypto-js");
 declare const GenerarVentanaModal: any;
-const CryptoJS=require('crypto-js');
+
 
 @Component({
   selector: 'app-login',
