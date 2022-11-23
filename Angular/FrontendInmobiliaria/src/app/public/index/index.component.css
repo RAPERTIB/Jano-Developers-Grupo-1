@@ -1,16 +1,35 @@
-div{
+body{
+    background-color: black;
+    background-repeat: no-repeat;
+    
+    
+}
+
+h2 {
     text-align: center;
-    image-orientation: center;
+
+}
+.imagen1{
+    margin-left: 200px;
+    display: block;
+    width: 150px;
+    height: 150px;
+    padding: 10px; margin: 10px; border: 2px solid black; float: left; width: 250px;
+    
+}
+
+.imagen2{
+    margin-right: 200px;
+    display: block;
+    width: 150px;
+    height: 150px;
+    padding: 10px; margin: 10px; border: 2px solid black; float: right; width: 250px;  
+    
+    
+}
+
+div {
     width: 600px;
-    height: 100;
-    font-family: Arial, Helvetica, sans-serif;
-    margin:  10px;
-    background-size: cover;   
-    background-attachment: fixed;    
-   
 }
-h2{
-    text-align: center;
-    color: #040668;
-}
+
 

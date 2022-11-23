@@ -19,7 +19,7 @@
             <input formControlName="pass" type="password" placeholder="Ingresa su Contraseña">
             <div class="errorValidacion">
                 <label *ngIf="formularioDatos.controls['pass'].errors && formularioDatos.controls['pass'].dirty">
-                    El password debe ser como minimo de 8 caracteres.
+                    El password debe ser como minimo de 6 caracteres.
                 </label>
 
             </div>
@@ -27,7 +27,7 @@
         <div style="text-align: right; text-decoration:underline;">
             <i><a routerLink="/seguridad/recuperar">olvido su Contraseña</a></i>
         </div>
-
+        
         <div class="center">
             <button (click)="Login() " class="btn waves-effect blu lighten-2" type="submit" name="action">Login
                 <i class="material-icons right">send</i>

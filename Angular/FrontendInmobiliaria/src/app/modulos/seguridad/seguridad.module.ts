@@ -18,6 +18,7 @@ import { EditarAdmComponent } from './administrador/editar-adm/editar-adm.compon
 import { ConsultarAdmComponent } from './administrador/consultar-adm/consultar-adm.component';
 import { EliminarAdmComponent } from './administrador/eliminar-adm/eliminar-adm.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LogoutComponent } from './general/logout/logout.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CrearAdmComponent,
     EditarAdmComponent,
     ConsultarAdmComponent,
-    EliminarAdmComponent
+    EliminarAdmComponent,
+    LogoutComponent
   ],
   imports: [
     CommonModule,

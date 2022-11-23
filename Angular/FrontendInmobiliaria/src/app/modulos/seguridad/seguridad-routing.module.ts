@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ErrorComponent } from 'src/app/public/error/error.component';
 import { AsignarPassComponent } from './general/asignar-pass/asignar-pass.component';
 import { LoginComponent } from './general/login/login.component';
+import { LogoutComponent } from './general/logout/logout.component';
 import { RecuperarPassComponent } from './general/recuperar-pass/recuperar-pass.component';
 import { CrearUserComponent } from './usuarios/crear-user/crear-user.component';
 
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path:"asignar-pass",
     component:AsignarPassComponent
+  },
+  {
+    path:"logout",
+    component: LogoutComponent
   },
 
   {

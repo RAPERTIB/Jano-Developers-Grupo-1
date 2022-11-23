@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { DatosSesionModel } from 'src/app/modelos/datos-sesion.model';
+import { SeguridadService } from 'src/app/servicios/comun/seguridad.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,10 +11,25 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
 
   sesionActiva: boolean=false;
+  subscription: Subscription= new Subscription ();
 
-  constructor() { }
+  constructor(
+    private servicioSeguridad: SeguridadService
+  ) { }
 
   ngOnInit(): void {
+    this.EstadoSesion();
+  }
+
+  EstadoSesion(){
+    this.subscription=this.servicioSeguridad. ObtenerInfoSesion().subscribe({
+      next:(data:DatosSesionModel)=>{
+        this.sesionActiva=data.isLoggedIn
+      },
+      error: (e:any)=>{
+
+      }
+    })
   }
 
 }
