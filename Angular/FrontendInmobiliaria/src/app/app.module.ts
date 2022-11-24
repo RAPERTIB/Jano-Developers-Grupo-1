@@ -9,6 +9,7 @@ import { FooterComponent } from './public/footer/footer.component';
 import { IndexComponent } from './public/index/index.component';
 import { ErrorComponent } from './public/error/error.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminComponent } from './modelos/seguridad/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
     NavbarComponent,
     FooterComponent,
     IndexComponent,
-    ErrorComponent
+    ErrorComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

@@ -19,6 +19,10 @@ import { ConsultarAdmComponent } from './administrador/consultar-adm/consultar-a
 import { EliminarAdmComponent } from './administrador/eliminar-adm/eliminar-adm.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LogoutComponent } from './general/logout/logout.component';
+import { CrearComponent } from './admin/crear/crear.component';
+import { EliminarComponent } from './admin/eliminar/eliminar.component';
+import { BuscarComponent } from './admin/buscar/buscar.component';
+import { EditarComponent } from './admin/editar/editar.component';
 
 
 @NgModule({
@@ -38,7 +42,11 @@ import { LogoutComponent } from './general/logout/logout.component';
     EditarAdmComponent,
     ConsultarAdmComponent,
     EliminarAdmComponent,
-    LogoutComponent
+    LogoutComponent,
+    CrearComponent,
+    EliminarComponent,
+    BuscarComponent,
+    EditarComponent
   ],
   imports: [
     CommonModule,
