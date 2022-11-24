@@ -3,6 +3,5 @@ export class DatosUserModel {
     celular?: string;
     id?: string;
     correo?: string;
-    roles?: [];
 
 }

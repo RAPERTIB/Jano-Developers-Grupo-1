@@ -22,9 +22,9 @@ export class NavbarComponent implements OnInit {
   }
 
   EstadoSesion(){
-    this.subscription=this.servicioSeguridad. ObtenerInfoSesion().subscribe({
+    this.subscription=this.servicioSeguridad.ObtenerInfoSesion().subscribe({
       next:(data:DatosSesionModel)=>{
-        this.sesionActiva=data.isLoggedIn
+        this.sesionActiva = data.isLoggedIn;
       },
       error: (e:any)=>{
 

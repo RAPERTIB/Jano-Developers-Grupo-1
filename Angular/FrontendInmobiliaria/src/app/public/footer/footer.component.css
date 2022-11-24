@@ -10,8 +10,12 @@ body {
 
   footer
 {
-    margin-top:400px;
+    margin-top:342px;
     width:100%;
     height:205px;
-    
+    padding: 0;
+    margin-bottom: 0;
+    margin-right: 0;
+    margin-left: 0;
+    display: inline-block;
 }

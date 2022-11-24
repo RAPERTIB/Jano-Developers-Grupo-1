@@ -15,8 +15,11 @@ export class SeguridadService {
 
   constructor(
     private http:HttpClient,
-    private servicioLocalStorage: LocalStorageService
-  ) { }
+    private servicioLocalStorage: LocalStorageService,
+    
+  ) {
+    this.VerificarSesionActiva();
+   }
 
   Login(credenciales:CredencialesUserModel):Observable<any>{
 

@@ -1,1 +1,29 @@
-<p>buscar-inmueble works!</p>
+<br>
+<button class="btn btn-success grey" routerLink="../crear" style="margin-left: 50px; margin-top: 30px;"> Agregar un inmueble</button>
+
+<fieldset class="grey lighten-5" style="margin: 50px;">
+    <legend> Aparment and Houses</legend>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        id
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Precio
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of listaInmuebles ">
+                    <td>{{p.id}}</td>
+                    <td>{{p.tipo}}</td>
+                    <td>{{p.precio}}</td>
+                </tr>
+            </tbody>
+        </table>
+    
+</fieldset>

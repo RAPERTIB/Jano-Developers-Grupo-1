@@ -20,6 +20,11 @@ const routes: Routes = [
   },
 
   {
+    path: "parametros",
+    loadChildren: () => import("./modulos/parametros/parametros.module").then(x => x.ParametrosModule)
+  },
+
+  {
     path:"**",
     component:ErrorComponent
     

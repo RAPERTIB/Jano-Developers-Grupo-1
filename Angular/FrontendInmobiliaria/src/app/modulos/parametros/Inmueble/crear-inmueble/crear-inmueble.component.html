@@ -1,1 +1,81 @@
-<p>crear-inmueble works!</p>
+<form class="formulario grey lighten-4" style="margin: 50px; padding: 30px ;"  [formGroup]="formInmueble">
+
+    <h1>Creacion de un inmueble</h1>
+    <div class="contenedor">
+
+        <div class="input-contenedor">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" placeholder="Nombre Propetario" formControlName="propetario">
+        </div>
+
+        <div class="input-contenedor">
+            <i class="fa-sharp fa-solid fa-id-card"></i>
+            <input type="text" placeholder="Tipo" formControlName="tipo">
+        </div>
+
+        <div class="input-contenedor">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="text" placeholder="Caracteristicas" formControlName="caracteristicas">
+        </div>
+
+        <div class="input-contenedor">
+            <i class="fa-solid fa-key"></i>
+            <input type="number" placeholder="Precio" formControlName="precio">
+        </div>
+
+        <div class="input-contenedor">
+            <i class="fa-solid fa-key"></i>
+            <input type="text" placeholder="Estado" formControlName="estado">
+        </div>
+
+        <div class="input-contenedor">
+            <i class="fa-solid fa-key"></i>
+            <input type="text" placeholder="Tipo Oferta" formControlName="tipo_oferta">
+        </div>
+
+        <div class="input-contenedor">
+            <i class="fa-solid fa-key"></i>
+            <input type="number" placeholder="Porcentaje Participacion" formControlName="porcentajeParticipacion">
+        </div>
+
+        <div class="input-contenedor">
+            <i class="fa-solid fa-key"></i>
+            <input type="text" placeholder="Direccion" formControlName="direccion">
+        </div>
+
+        <div class="input-contenedor">
+            <i class="fa-solid fa-key"></i>
+            <input type="text" placeholder="Ciudad" formControlName="ciudad">
+
+        </div>
+
+        <div class="input-contenedor">
+            <i class="fa-solid fa-key"></i>
+            <input type="text" placeholder="Departamento" formControlName="departamento">
+        </div>
+
+        <div class="input-contenedor">
+            <i class="fa-solid fa-key"></i>
+            <input type="text" placeholder="Contacto Propetario" formControlName="contacto_Propetario">
+        </div>
+
+        <div class="input-contenedor">
+            <i class="fa-solid fa-key"></i>
+            <input type="text" placeholder="Imagen" formControlName="imagenes">
+        </div>
+        
+
+        <div class="center">
+            <button class="btn waves-effect blu lighten-2" type="submit" name="action">Crear
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+
+
+
+      
+
+
+    </div>
+</form>
+

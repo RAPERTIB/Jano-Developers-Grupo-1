@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
   
   ConstruccionFormulario(){
     this.formularioDatos=this.fb.group({
-      user:["",[Validators.required,Validators.email]],
-      pass:["",[Validators.required,Validators.minLength(6)]]
+      user:["janodevelopers2022@gmail.com",[Validators.required,Validators.email]],
+      pass: ["cZCGqCEF",[Validators.required,Validators.minLength(6)]]
 
     });
   }
@@ -51,9 +51,9 @@ export class LoginComponent implements OnInit {
         next: (datos:DatosSesionModel)=>{
           console.log(datos);
           let guardar=this.servicioLocalStrorage.GuardarDatosSesion(datos);
-          datos.isLoggedIn=true;
+          datos.isLoggedIn= true;
           this.servicicoSeguridad.RefrescarDatosSesion(datos);  
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home']);   
         },
         error:(e)=>{
           if(e==401){

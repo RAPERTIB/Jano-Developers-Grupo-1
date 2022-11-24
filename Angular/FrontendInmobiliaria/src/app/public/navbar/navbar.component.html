@@ -1,13 +1,13 @@
 
 <nav>
-    <div class="nav-wrapper cyan darken-1">
-      <a routerLink="" class="brand-logo">APP-Inmobiliaria</a>
+    <div class="nav-wrapper blue darken-1">
+      <a routerLink="" class="brand-logo desplazar1">Hogar Colombia</a>
       <a routerLinkf="" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-      <ul class="right hide-on-med-and-down">
+      <ul class="right hide-on-med-and-down desplazar2">
         <li *ngIf="!sesionActiva"><a routerLink="seguridad/registrese">Registrese</a></li>
         <li *ngIf="!sesionActiva"><a routerLink="seguridad/Login">Login</a></li>
-        <li *ngIf="sesionActiva"><a routerLink="collapsible.html">Javascript</a></li>
-        <li *ngIf="sesionActiva"><a routerLink="mobile.html">Mobile</a></li>
+        <li *ngIf="sesionActiva"><a routerLink="parametros/Inmueble">Apartment</a></li>
+        <li *ngIf="sesionActiva"><a routerLink="parametros/Inmueble">House</a></li>
         <li *ngIf="sesionActiva"><a routerLink="seguridad/logout">Logout</a></li>
       </ul>
     </div>
@@ -16,7 +16,7 @@
   <ul class="sidenav" id="mobile-demo">
       <li *ngIf="!sesionActiva"><a routerLink="seguridad/registrese">Registrese</a></li>
       <li *ngIf="!sesionActiva"><a routerLink="seguridad/Login">Login</a></li>
-      <li *ngIf="sesionActiva"><a routerLink="collapsible.html">Javascript</a></li>
-      <li *ngIf="sesionActiva"><a routerLink="mobile.html">Mobile</a></li>
+      <li *ngIf="sesionActiva"><a routerLink="parametros/Inmueble">Apartment</a></li>
+      <li *ngIf="sesionActiva"><a routerLink="parametros/Inmueble">House</a></li>
       <li *ngIf="sesionActiva"><a routerLink="seguridad/logout">Logout</a></li>
   </ul>
