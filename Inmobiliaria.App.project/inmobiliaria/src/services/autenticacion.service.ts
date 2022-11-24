@@ -18,7 +18,9 @@ export class AutenticacionService {
   constructor(@repository (AdminRepository )
     public repositorioAdmin:AdminRepository,
     @repository(AsesorRepository)
-    public repositorioAsesor: AsesorRepository
+    public repositorioAsesor: AsesorRepository,
+    @repository(ClienteRepository)
+    public repositorioCliente:ClienteRepository
     ) {}
 
    GeneradorPassword(){
@@ -49,9 +51,24 @@ export class AutenticacionService {
       }
 
     }
+
+  IdentificarCliente(credenciales: Credenciales) {
+    try {
+      let p = this.repositorioCliente.findOne({
+        where: { correo: credenciales.usuario, clave: credenciales.password }
+      });
+      if (p) {
+        return p;
+      }
+      return false;
+    } catch {
+      return false;
+    }
+
+  }
   IdentificarAsesor(credenciales: Credenciales) {
     try {
-      let p = this.repositorioAdmin.findOne({
+      let p = this.repositorioAsesor.findOne({
         where: { correo: credenciales.usuario, clave: credenciales.password }
       });
       if (p) {
@@ -64,8 +81,8 @@ export class AutenticacionService {
 
   }
 
-    GeneracionToken(cliente:Admin){
-      let token = jwt.sing({
+    GeneracionToken(cliente:Cliente){
+      let token = jwt.sign({
         data:{
           id: cliente.id,
           correo: cliente.correo,
@@ -77,6 +94,33 @@ export class AutenticacionService {
 
       return token;
     }
+
+  GeneracionTokenAd(cliente: Admin) {
+    let token = jwt.sign({
+      data: {
+        id: cliente.id,
+        correo: cliente.correo,
+        nombre: cliente.primernombre + " " + cliente.primerapellido,
+        rol: cliente.rol
+      }
+    }, Keys.claveJWT
+    );
+
+    return token;
+  }
+  GeneracionTokenAs(cliente: Asesor) {
+    let token = jwt.sign({
+      data: {
+        id: cliente.id,
+        correo: cliente.correo,
+        nombre: cliente.primernombre + " " + cliente.primerapellido
+        
+      }
+    }, Keys.claveJWT
+    );
+
+    return token;
+  }
 
   ValidarToken(token:string){
     try {

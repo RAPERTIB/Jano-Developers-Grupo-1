@@ -172,21 +172,26 @@ export class ClienteController {
     await this.clienteRepository.deleteById(id);
   }
 
-  @post('/login')
+  @post('/Login')
   @response(200, {
     description: "Identificacion de las personas"
   })
   async identificar(
     @requestBody() credenciales: Credenciales
-  ):Promise<Cliente | null>{
-    credenciales.password = this.servicioAutenticacion.EncriptarPassword(credenciales.password)
-    let clienteEncontrado = await this.clienteRepository.findOne({
-      where: {
-        correo: credenciales.usuario,
-        clave: credenciales.password
+  ){
+    let p = await this.servicioAutenticacion.IdentificarCliente(credenciales);
+    if (p) {
+      let token = this.servicioAutenticacion.GeneracionToken(p);
+      return {
+        informacion: {
+          nombre: p.primernombre,
+          id: p.id
+        },
+        tk: token
+
       }
-    });
-    return clienteEncontrado;
+    }
+  
   }
 
   @post('/recuperarPass')

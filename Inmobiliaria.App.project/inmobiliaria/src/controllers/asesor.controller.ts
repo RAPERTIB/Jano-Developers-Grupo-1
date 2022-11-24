@@ -182,7 +182,7 @@ export class AsesorController {
 
     let p = await this.servicioAutenticacion.IdentificarAsesor(credenciales);
     if (p) {
-      let token = this.servicioAutenticacion.GeneracionToken(p);
+      let token = this.servicioAutenticacion.GeneracionTokenAs(p);
       return {
         informacion: {
           nombre: p.primernombre,
